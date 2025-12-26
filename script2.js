@@ -16,8 +16,8 @@ function secondsToMinutesSecond(seconds) {
 async function getSongs(folder) {
     currFolder = folder;
 
-    // ✅ FIXED PATH (relative)
-    let res = await fetch(`songs/${folder}/info.json`);
+    // ✅ FIXED: explicit relative path
+    let res = await fetch(`./songs/${folder}/info.json`);
     let info = await res.json();
 
     songs = info.songs.map(song => ({
@@ -72,8 +72,8 @@ async function displayAlbums() {
 
     for (let folder of albums) {
         try {
-            // ✅ FIXED PATH
-            let infoRes = await fetch(`songs/${folder}/info.json`);
+            // ✅ FIXED: explicit relative path
+            let infoRes = await fetch(`./songs/${folder}/info.json`);
             if (!infoRes.ok) continue;
 
             let info = await infoRes.json();
@@ -86,8 +86,8 @@ async function displayAlbums() {
                             <path d="M26 20 L26 44 L46 32 Z" fill="#000"/>
                         </svg>
                     </div>
-                    <!-- ✅ FIXED IMAGE PATH -->
-                    <img src="songs/${folder}/cover.jpeg">
+                    <!-- ✅ FIXED: explicit relative image path -->
+                    <img src="./songs/${folder}/cover.jpeg">
                     <h3>${info.title}</h3>
                     <p>${info.description}</p>
                 </div>`;
