@@ -1,4 +1,13 @@
 {
-    "title":"Kannada old hits",
-    "description":"Old lannada masterpiece just for you chinna"
+  "title": "Kannada Old Hits",
+  "description": "Classic evergreen Kannada songs",
+  "baseUrl": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766762024/",
+  "songs": [
+    "BAARISU_KANNAD.mp3",
+    "Huttidare_Kannada_Nadalli.mp3",
+    "Kalladare_Naa.mp3",
+    "KannadakkagiJanana.mp3",
+    "Karunade_Kannada.mp3",
+    "Viraparampare_.mp3"
+  ]
 }

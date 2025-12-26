@@ -1,4 +1,12 @@
 {
-    "title":"Smooth songs",
-    "description":"songs for gen Z"
+  "title": "NCS Hits",
+  "description": "Non-copyright and trending tracks",
+  "baseUrl": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766762041/",
+  "songs": [
+    "Despacito_.mp3",
+    "Dhurandhar_-_Title_Track(128k).mp3",
+    "Dhurandhar_-_Title_Track(128k)_Copy.mp3",
+    "Ello_Jogappa___(128k).mp3",
+    "Gehra_Hua___.mp3"
+  ]
 }

@@ -1,110 +1,82 @@
-
 let currentSong = new Audio();
-let songs; // Global variable
-let currFolder;
+let songs = [];
+let currFolder = "";
 
+// ------------------ UTIL ------------------
 function secondsToMinutesSecond(seconds) {
     if (isNaN(seconds) || seconds < 0) {
         return "00:00";
     }
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
-    const formattedMinutes = String(minutes).padStart(2, '0');
-    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
-    return `${formattedMinutes}:${formattedSeconds}`;
+    return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
 }
 
+// ------------------ LOAD SONGS ------------------
 async function getSongs(folder) {
     currFolder = folder;
-    let a = await fetch(`/songs/${folder}/`);
-    let response = await a.text();
-    let div = document.createElement("div");
-    div.innerHTML = response;
-    let as = div.getElementsByTagName("a");
-    
-    songs = []; 
-    
-    for (let i = 0; i < as.length; i++) {
-        const element = as[i];
-        if (element.href.endsWith(".mp3")) {
-            let href = element.href;
-            let parts = href.split(/\/|\\|%5C/);
-            let filename = parts[parts.length - 1];
-            songs.push(filename);
-        }
-    }
 
-    let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
+    // Read album metadata (LOCAL JSON)
+    let res = await fetch(`/songs/${folder}/info.json`);
+    let info = await res.json();
+
+    // Build songs array using cloud baseUrl
+    songs = info.songs.map(song => ({
+        name: song.replace(".mp3", "").replaceAll("_", " "),
+        url: info.baseUrl + encodeURIComponent(song)
+    }));
+
+    // Render song list
+    let songUL = document.querySelector(".songList ul");
     songUL.innerHTML = "";
-    for (const song of songs) {
-        songUL.innerHTML = songUL.innerHTML + `<li>  
-                            <img class="invert" src="music.svg" alt="music">
-                            <div class="info">
-                                <div> ${song.replaceAll("%20", " ")}</div>
-                                <div>Abbhi Singh</div>
-                            </div>
-                            <div class="playnow">
-                                <span>Play Now</span>
-                                <img class="invert" src="play.svg" alt="play">
-                            </div> </li>`;
-    }
 
-    Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEach(e => {
-        e.addEventListener("click", element => {
-            let trackName = e.querySelector(".info").firstElementChild.textContent.trim();
-            playMusic(trackName);
+    songs.forEach((song, index) => {
+        songUL.innerHTML += `
+        <li>
+            <img class="invert" src="music.svg" alt="music">
+            <div class="info">
+                <div>${song.name}</div>
+                <div>Abbhi Singh</div>
+            </div>
+            <div class="playnow">
+                <span>Play Now</span>
+                <img class="invert" src="play.svg" alt="play">
+            </div>
+        </li>`;
+    });
+
+    // Click handlers
+    Array.from(songUL.children).forEach((li, index) => {
+        li.addEventListener("click", () => {
+            playMusic(songs[index]);
         });
     });
 }
 
-const playMusic = (track, pause = false) => {
-    // CHANGE: Ensure the track name is decoded before using it in the display, 
-    // but encoded for the URL source
-    currentSong.src = `/v84/songs/${currFolder}/` + encodeURI(track);
-    
+// ------------------ PLAY MUSIC ------------------
+const playMusic = (song, pause = false) => {
+    currentSong.src = song.url;
+
     if (!pause) {
         currentSong.play();
         play.src = "pause.svg";
     }
-    // CHANGE: Use decodeURI so the song info doesn't show %20 instead of spaces
-    document.querySelector(".songinfo").innerHTML = decodeURI(track);
+
+    document.querySelector(".songinfo").innerHTML = song.name;
     document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
-}
+};
 
+// ------------------ DISPLAY ALBUMS ------------------
 async function displayAlbums() {
-
-    let res = await fetch("/songs/");
-    let html = await res.text();
-
-    let div = document.createElement("div");
-    div.innerHTML = html;
-
-    let anchors = div.querySelectorAll("a");
+    // Hardcoded album list (DEPLOY SAFE)
+    let albums = ["ab", "cs", "ncs", "kannadaoldhits", "tamil hits"];
     let cardContainer = document.querySelector(".cardContainer");
 
     cardContainer.innerHTML = "";
 
-    for (let a of anchors) {
-
-        // 👇 THIS LINE FIXES YOUR BUG
-        let href = decodeURIComponent(a.getAttribute("href"));
-
-        // ignore parent directory
-        if (href === "../") continue;
-
-        // normalize slashes
-        href = href.replace(/\\/g, "/");
-
-        // extract folder name
-        let parts = href.split("/").filter(Boolean);
-        let folder = parts[parts.length - 1];
-
-        // safety checks
-        if (!folder || folder === "songs") continue;
-
-
+    for (let folder of albums) {
         try {
-            let infoRes = await fetch(`/v84/songs/${folder}/info.json`);
+            let infoRes = await fetch(`/songs/${folder}/info.json`);
             if (!infoRes.ok) continue;
 
             let info = await infoRes.json();
@@ -117,12 +89,12 @@ async function displayAlbums() {
                             <path d="M26 20 L26 44 L46 32 Z" fill="#000"/>
                         </svg>
                     </div>
-                    <img src="/v84/songs/${folder}/cover.jpeg">
+                    <img src="/songs/${folder}/cover.jpeg">
                     <h3>${info.title}</h3>
                     <p>${info.description}</p>
                 </div>`;
         } catch (err) {
-            
+            console.error("Album load failed:", folder);
         }
     }
 
@@ -135,12 +107,11 @@ async function displayAlbums() {
     });
 }
 
-
+// ------------------ MAIN ------------------
 async function main() {
     await getSongs("cs");
     playMusic(songs[0], true);
-
-    await displayAlbums(); 
+    await displayAlbums();
 
     play.addEventListener("click", () => {
         if (currentSong.paused) {
@@ -154,15 +125,17 @@ async function main() {
 
     currentSong.addEventListener("timeupdate", () => {
         if (!isNaN(currentSong.duration)) {
-            document.querySelector(".songtime").innerHTML = `${secondsToMinutesSecond(currentSong.currentTime)} / ${secondsToMinutesSecond(currentSong.duration)}`;
-            document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
+            document.querySelector(".songtime").innerHTML =
+                `${secondsToMinutesSecond(currentSong.currentTime)} / ${secondsToMinutesSecond(currentSong.duration)}`;
+            document.querySelector(".circle").style.left =
+                (currentSong.currentTime / currentSong.duration) * 100 + "%";
         }
     });
 
     document.querySelector(".seekbar").addEventListener("click", e => {
         let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
         document.querySelector(".circle").style.left = percent + "%";
-        currentSong.currentTime = ((currentSong.duration) * percent) / 100;
+        currentSong.currentTime = (currentSong.duration * percent) / 100;
     });
 
     document.querySelector(".hamburger").addEventListener("click", () => {
@@ -174,35 +147,34 @@ async function main() {
     });
 
     previous.addEventListener("click", () => {
-        // CHANGE: Corrected the index matching for Next/Prev to work with cleaned song names
-        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
-        if ((index - 1) >= 0) {
+        let index = songs.findIndex(s => s.url === currentSong.src);
+        if (index > 0) {
             playMusic(songs[index - 1]);
         }
     });
 
     next.addEventListener("click", () => {
-        // CHANGE: Corrected the index matching for Next/Prev to work with cleaned song names
-        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
-        if ((index + 1) < songs.length) {
+        let index = songs.findIndex(s => s.url === currentSong.src);
+        if (index < songs.length - 1) {
             playMusic(songs[index + 1]);
         }
     });
 
-    document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change", (e) => {
+    document.querySelector(".range input").addEventListener("change", e => {
         currentSong.volume = parseInt(e.target.value) / 100;
     });
-    document.querySelector(".volume>img").addEventListener("click",e=>{
-        if(e.target.src.includes("volume.svg")){
-            e.target.src = e.target.src.replace("volume.svg","mute.svg")
-            currentSong.volume=0;
-            document.querySelector(".range").getElementsByTagName("input")[0].value=0;
-        }else{
-            e.target.src = e.target.src.replace("mute.svg","volume.svg")
-            currentSong.volume = .10;
-            document.querySelector(".range").getElementsByTagName(".input")[0].value = 10;
+
+    document.querySelector(".volume>img").addEventListener("click", e => {
+        if (e.target.src.includes("volume.svg")) {
+            e.target.src = e.target.src.replace("volume.svg", "mute.svg");
+            currentSong.volume = 0;
+            document.querySelector(".range input").value = 0;
+        } else {
+            e.target.src = e.target.src.replace("mute.svg", "volume.svg");
+            currentSong.volume = 0.1;
+            document.querySelector(".range input").value = 10;
         }
-    })
+    });
 }
 
 main();

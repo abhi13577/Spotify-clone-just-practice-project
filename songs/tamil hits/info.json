@@ -1,4 +1,12 @@
 {
-    "title":"Tamil hits",
-    "description":"Your favorite songs just for you"
+  "title": "Tamil hits",
+  "description": "Your favorite songs just for you",
+  "baseUrl": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761660/",
+  "songs": [
+    "Golden_Sparrow.mp3",
+    "Kannukulla_Song.mp3",
+    "Monica_.mp3",
+    "Oorum_Blood___.mp3",
+    "Powerhouse_klpyrc.mp3"
+  ]
 }

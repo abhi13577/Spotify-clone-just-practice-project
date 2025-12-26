@@ -1,4 +1,10 @@
 {
-    "title":"Latest songs",
-    "description":"songs for gen Z"
+  "title": "CS Hits",
+  "description": "Popular and trending CS collection songs",
+  "baseUrl": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761713/",
+  "songs": [
+    "Mehabooba_Mehabooba_-_.mp3",
+    "Mehabooba__Kannada.mp3",
+    "Shararat___Dhurandhar.mp3"
+  ]
 }

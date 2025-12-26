@@ -1,4 +1,10 @@
 {
-    "title":"Dhamaka songs",
-    "description":"songs for gen Z"
+  "title": "AB Hits",
+  "description": "Handpicked favorite tracks",
+  "baseUrl": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761513/",
+  "songs": [
+    "Mehabooba_Mehabooba_-_.mp3",
+    "Mehabooba__Kannada.mp3",
+    "Shararat___Dhurandhar.mp3"
+  ]
 }
