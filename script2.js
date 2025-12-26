@@ -65,7 +65,7 @@ const playMusic = (song, pause = false) => {
 
 // ------------------ DISPLAY ALBUMS ------------------
 async function displayAlbums() {
-    let albums = ["ab", "cs", "ncs", "kannadaoldhits", "tamil hits"];
+    let albums = ["ab", "cs", "ncs", "kannadaoldhits", "tamilhits"];
     let cardContainer = document.querySelector(".cardContainer");
 
     cardContainer.innerHTML = "";
