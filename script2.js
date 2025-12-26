@@ -16,21 +16,19 @@ function secondsToMinutesSecond(seconds) {
 async function getSongs(folder) {
     currFolder = folder;
 
-    // Read album metadata (LOCAL JSON)
-    let res = await fetch(`/songs/${folder}/info.json`);
+    // ✅ FIXED PATH (relative)
+    let res = await fetch(`songs/${folder}/info.json`);
     let info = await res.json();
 
-    // Build songs array using cloud baseUrl
     songs = info.songs.map(song => ({
         name: song.replace(".mp3", "").replaceAll("_", " "),
         url: info.baseUrl + encodeURIComponent(song)
     }));
 
-    // Render song list
     let songUL = document.querySelector(".songList ul");
     songUL.innerHTML = "";
 
-    songs.forEach((song, index) => {
+    songs.forEach(song => {
         songUL.innerHTML += `
         <li>
             <img class="invert" src="music.svg" alt="music">
@@ -45,7 +43,6 @@ async function getSongs(folder) {
         </li>`;
     });
 
-    // Click handlers
     Array.from(songUL.children).forEach((li, index) => {
         li.addEventListener("click", () => {
             playMusic(songs[index]);
@@ -68,7 +65,6 @@ const playMusic = (song, pause = false) => {
 
 // ------------------ DISPLAY ALBUMS ------------------
 async function displayAlbums() {
-    // Hardcoded album list (DEPLOY SAFE)
     let albums = ["ab", "cs", "ncs", "kannadaoldhits", "tamil hits"];
     let cardContainer = document.querySelector(".cardContainer");
 
@@ -76,7 +72,8 @@ async function displayAlbums() {
 
     for (let folder of albums) {
         try {
-            let infoRes = await fetch(`/songs/${folder}/info.json`);
+            // ✅ FIXED PATH
+            let infoRes = await fetch(`songs/${folder}/info.json`);
             if (!infoRes.ok) continue;
 
             let info = await infoRes.json();
@@ -89,7 +86,8 @@ async function displayAlbums() {
                             <path d="M26 20 L26 44 L46 32 Z" fill="#000"/>
                         </svg>
                     </div>
-                    <img src="/songs/${folder}/cover.jpeg">
+                    <!-- ✅ FIXED IMAGE PATH -->
+                    <img src="songs/${folder}/cover.jpeg">
                     <h3>${info.title}</h3>
                     <p>${info.description}</p>
                 </div>`;
