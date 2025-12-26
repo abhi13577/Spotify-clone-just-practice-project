@@ -16,14 +16,12 @@ function secondsToMinutesSecond(seconds) {
 async function getSongs(folder) {
     currFolder = folder;
 
-    // ✅ FIXED: explicit relative path
+    // ✅ Load JSON (GitHub Pages safe)
     let res = await fetch(`./songs/${folder}/info.json`);
     let info = await res.json();
 
-    songs = info.songs.map(song => ({
-        name: song.replace(".mp3", "").replaceAll("_", " "),
-        url: info.baseUrl + encodeURIComponent(song)
-    }));
+    // ✅ USE SONGS DIRECTLY (no mapping, no guessing)
+    songs = info.songs;
 
     let songUL = document.querySelector(".songList ul");
     songUL.innerHTML = "";
@@ -72,7 +70,6 @@ async function displayAlbums() {
 
     for (let folder of albums) {
         try {
-            // ✅ FIXED: explicit relative path
             let infoRes = await fetch(`./songs/${folder}/info.json`);
             if (!infoRes.ok) continue;
 
@@ -86,7 +83,6 @@ async function displayAlbums() {
                             <path d="M26 20 L26 44 L46 32 Z" fill="#000"/>
                         </svg>
                     </div>
-                    <!-- ✅ FIXED: explicit relative image path -->
                     <img src="./songs/${folder}/cover.jpeg">
                     <h3>${info.title}</h3>
                     <p>${info.description}</p>

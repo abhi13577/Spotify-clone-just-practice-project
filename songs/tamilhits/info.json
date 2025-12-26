@@ -1,12 +1,29 @@
 {
   "title": "Tamil hits",
   "description": "Your favorite songs just for you",
-  "baseUrl": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761660/",
   "songs": [
-    "Golden_Sparrow.mp3",
-    "Kannukulla_Song.mp3",
-    "Monica_.mp3",
-    "Oorum_Blood___.mp3",
-    "Powerhouse_klpyrc.mp3"
+    {
+      "name": "Golden_Sparrow.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761544/Golden_Sparrow_jhjn7g.mp3"
+    },
+    {
+      "name": "Kannukulla_Song.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761602/Kannukulla_Song_feskdl.mp3"
+    },
+    {
+      "name": "Monica_.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761576/Monica__crjuis.mp3"
+    },
+    {
+      "name": "Oorum_Blood___.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761595/Oorum_Blood____ticgsb.mp3"
+    },
+    {
+      "name": "Powerhouse_klpyrc.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761660/Powerhouse_klpyrc.mp3"
+    }
   ]
 }
+
+
+

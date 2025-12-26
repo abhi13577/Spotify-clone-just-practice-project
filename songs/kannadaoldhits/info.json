@@ -1,13 +1,31 @@
 {
   "title": "Kannada Old Hits",
   "description": "Classic evergreen Kannada songs",
-  "baseUrl": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766762024/",
   "songs": [
-    "BAARISU_KANNAD.mp3",
-    "Huttidare_Kannada_Nadalli.mp3",
-    "Kalladare_Naa.mp3",
-    "KannadakkagiJanana.mp3",
-    "Karunade_Kannada.mp3",
-    "Viraparampare_.mp3"
+    {
+      "name": "BAARISU_KANNAD.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761790/BAARISU_KANNAD_euimgt.mp3"
+    },
+    {
+      "name": "Huttidare_Kannada_Nadalli.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761758/Huttidare_Kannada_Nadalli_lkskoi.mp3"
+    },
+    {
+      "name": "Kalladare_Naa.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761853/Kalladare_Naa_n3weqi.mp3"
+    },
+    {
+      "name": "KannadakkagiJanana.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766762085/KannadakkagiJanana_a2sw9s.mp3"
+    },
+    {
+      "name": "Karunade_Kannada.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761930/Karunade_Kannada_m3qhgl.mp3"
+    },
+    {
+      "name": "Viraparampare_.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766762024/Viraparampare__zeb7r2.mp3"
+    }
   ]
 }
+

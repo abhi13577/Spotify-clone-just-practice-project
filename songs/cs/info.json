@@ -1,10 +1,19 @@
 {
   "title": "CS Hits",
   "description": "Popular and trending CS collection songs",
-  "baseUrl": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761713/",
   "songs": [
-    "Mehabooba_Mehabooba_-_.mp3",
-    "Mehabooba__Kannada.mp3",
-    "Shararat___Dhurandhar.mp3"
+    {
+      "name": "Mehabooba_Mehabooba_-_.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761816/Mehabooba_Mehabooba_-__xu5zo0.mp3"
+    },
+    {
+      "name": "Mehabooba__Kannada.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761510/Mehabooba__Kannada_p3tpw2.mp3"
+    },
+    {
+      "name": "Shararat___Dhurandhar.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761513/Shararat___Dhurandhar_fi9pzj.mp3"
+    }
   ]
 }
+

@@ -1,12 +1,29 @@
+
 {
   "title": "NCS Hits",
   "description": "Non-copyright and trending tracks",
-  "baseUrl": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766762041/",
   "songs": [
-    "Despacito_.mp3",
-    "Dhurandhar_-_Title_Track(128k).mp3",
-    "Dhurandhar_-_Title_Track(128k)_Copy.mp3",
-    "Ello_Jogappa___(128k).mp3",
-    "Gehra_Hua___.mp3"
+    {
+      "name": "Despacito_.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766762056/Despacito__k7y2pa.mp3"
+    },
+    {
+      "name": "Dhurandhar_-_Title_Track(128k).mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761885/Dhurandhar_-_Title_Track_128k_l4yjal.mp3"
+    },
+    {
+      "name": "Dhurandhar_-_Title_Track(128k)_Copy.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766761851/Dhurandhar_-_Title_Track_128k_-_Copy_blumbn.mp3"
+    },
+    {
+      "name": "Ello_Jogappa___(128k).mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766762039/Ello_Jogappa____128k_ojxtrm.mp3"
+    },
+    {
+      "name": "Gehra_Hua___.mp3",
+      "url": "https://res.cloudinary.com/drvuwaqfp/video/upload/v1766762041/Gehra_Hua____n9suzu.mp3"
+    }
   ]
 }
+
+
